@@ -1,0 +1,34 @@
+[project]
+name = "minha-biblioteca"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "ribeiro-d",email = "daviribv@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.13"
+
+[tool.poetry.dependencies]
+python = "^3.13"
+fastapi = "*"
+uvicorn = { extras = ["standard"], version = "*" }
+databases = {extras = ["aiosqlite", "asyncpg"], version = "^0.9.0"}
+pyjwt = "*"
+psycopg2-binary = "*"
+
+
+[tool.poetry.group.dev.dependencies]
+httpx = "*"
+pytest-asyncio = "*"
+pytest-mock = "*"
+pytest = "*"
+
+[tool.poetry]
+package-mode = false
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini-options]
+asyncio-mode = "auto"
