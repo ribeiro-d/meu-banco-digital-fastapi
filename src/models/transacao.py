@@ -3,5 +3,7 @@ import sqlalchemy as sa
 
 transacoes = sa.Table(
     "transacoes",
-    metadata=metadata,
+    metadata,
+    sa.Column("id", sa.Integer, primary_key=True),
+    sa.Column("type", sa.String, nullable=False)
 )
