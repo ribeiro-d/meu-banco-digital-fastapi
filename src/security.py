@@ -14,7 +14,7 @@ ALGORITHM = "HS256"
 
 class AccessToken(BaseModel):
     iss: str
-    sub: str
+    sub: int
     aud: str
     exp: float
     iat: float
@@ -26,10 +26,9 @@ class JWTToken(BaseModel):
     access_token: AccessToken
 
 
-async def decode_jwt(token: str) -> JWTToken:
+async def decode_jwt(token: str) -> JWTToken | None:
     try:
-        decoded_token = jwt.decode(token, SECRET, algorithms=[
-                                   ALGORITHM], audience="meu-banco-digital")
+        decoded_token = jwt.decode(token, SECRET, algorithms=[ALGORITHM], audience="meu-banco-digital")
         _token = JWTToken.model_validate({"access_token": decoded_token})
         return _token if _token.access_token.exp >= time.time() else None
     except Exception:
@@ -59,11 +58,11 @@ class JWTBearer(HTTPBearer):
                 status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid authorization code")
 
 
-def sign_jwt(user_id: str):
+def sign_jwt(user_id: int):
     now = time.time()
     payload = {
         "iss": "meu-banco-digital.com.br",
-        "sub": user_id,
+        "sub": str(user_id),
         "aud": "meu-banco-digital",
         "exp": now + (60 * 30),
         "iat": now,

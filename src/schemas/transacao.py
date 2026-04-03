@@ -4,14 +4,12 @@ from pydantic import BaseModel
 
 
 class Transacao(BaseModel):
-    id: int
+    conta_id: int
 
 
-class SaqueIn(Transacao):
-    value: float
-    date: datetime = datetime.now()
+class Saque(Transacao):
+    valor: float
 
 
-class DepositoIn(Transacao):
-    value: float
-    date: datetime = datetime.now()
+class Deposito(Transacao):
+    valor: float

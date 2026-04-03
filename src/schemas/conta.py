@@ -1,8 +1,6 @@
 from pydantic import BaseModel
 
 
-class ContaCorrenteIn(BaseModel):
-    id: int
-    nome: str
-    agencia: str
+class ContaIn(BaseModel):
+    user_id: int
     saldo: float = 0

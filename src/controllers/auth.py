@@ -1,0 +1,10 @@
+from fastapi import APIRouter
+from src.schemas.auth import LoginIn
+from src.views.auth import LoginOut
+from src.security import sign_jwt
+
+router = APIRouter(prefix="/auth", tags=["auth"])
+
+@router.post("/login")
+def login(data: LoginIn):
+    return sign_jwt(user_id=data.user_id)
