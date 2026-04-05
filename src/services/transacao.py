@@ -9,7 +9,7 @@ from src.models.transacao import transacoes
 
 
 class TransacaoService:
-    async def ler_historico(self, conta_id: int, limit: int, skip: int = 0) -> list[Record]:
+    async def ler_historico(self, conta_id: int, limit: int = 10, skip: int = 0) -> list[Record]:
         query = transacoes.select().where(transacoes.c.conta_id == conta_id).limit(limit).offset(skip)
         return await database.fetch_all(query)
 
